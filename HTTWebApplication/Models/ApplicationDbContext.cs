@@ -13,6 +13,14 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>()
+            .Property(c => c.Name)
+            .HasColumnType("text"); 
+
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Name)
+            .HasColumnType("text"); 
+
         modelBuilder.Entity<Product>()
             .HasOne(p => p.Category)
             .WithMany(c => c.Products)
