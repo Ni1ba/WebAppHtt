@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-
+using HTTWebApplication.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,10 +23,17 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+ 
 
 app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=ProductsController}/{action=Index}/{id?}");
+});
 app.Run();
